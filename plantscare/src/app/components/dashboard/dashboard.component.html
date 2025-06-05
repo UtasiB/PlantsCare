@@ -1,0 +1,31 @@
+<form>
+    <legend>Dashboard</legend>
+    <hr>        
+    <div class="mb-3">
+        <h4>Statistics</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Plant</th>
+                    <th scope="col">Species</th>
+                    <th scope="col">Last watered date</th>
+                    <th scope="col">Watering count</th>
+                    <th scope="col">Average water amount</th>
+                    <th scope="col">Total water amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stat of statistics; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ stat.plant_name }}</td>
+                    <td>{{ stat.species }}</td>
+                    <td>{{ stat.last_watered_date | date:'yyyy-MM-dd' }}</td> <!-- Dátum formázása -->
+                    <td>{{ stat.watering_count }}</td>
+                    <td>{{ stat.average_amount_ml }}</td>
+                    <td>{{ stat.total_watered_ml }}</td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+</form>

@@ -1,0 +1,58 @@
+<form>
+    <legend>Plants management</legend>
+    <hr>        
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary mb-3" (click)="showAddForm = true">+ Add new plant</button>
+    </div>
+
+    <div *ngIf="showAddForm" class="mb-3">
+        <form (ngSubmit)="addPlant(newPlant)">
+            <div class="mb-3">
+                <label for="plantName" class="form-label">Plant Name</label>
+                <input type="text" id="plantName" class="form-control" [(ngModel)]="newPlant.name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="plantSpecies" class="form-label">Species</label>
+                <input type="text" id="plantSpecies" class="form-control" [(ngModel)]="newPlant.species" name="species" required>
+            </div>
+            <div class="mb-3">
+                <label for="waterInterval" class="form-label">Watering Interval (days)</label>
+                <input type="number" id="waterInterval" class="form-control" [(ngModel)]="newPlant.water_interval_days" name="water_interval_days" required>
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="showAddForm = false">Cancel</button>
+        </form>
+    </div>
+
+    <h4>Plants list</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Plant</th>
+                <th scope="col">Species</th>
+                <th scope="col">Watering Interval</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let plant of plants; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ plant.name }}</td>
+                <td>{{ plant.species }}</td>
+                <td>{{ plant.water_interval_days }} days</td>
+                <td>            
+                    <button type="button" class="btn btn-warning btn-sm" (click)="navigateToEditForm(plant.id)">Modify</button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="deletePlant(plant.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <small class="text-muted">Total: {{ plants.length }} plants</small>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

@@ -1,0 +1,65 @@
+<form>
+    <legend>Waterings management</legend>
+    <hr>        
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">Select Plant</label>
+        <select class="form-select" id="inputGroupSelect01" name="selectedPlant" [(ngModel)]="selectedPlantId" (change)="getWaterings()">
+          <option value="" disabled selected>Choose...</option>
+          <option *ngFor="let plant of plants" [value]="plant.id">{{ plant.name }}</option>
+        </select>
+    </div>
+
+    <div *ngIf="selectedPlantId" class="mb-3">
+        <button type="button" class="btn btn-primary mb-3" (click)="showAddForm = true">+ Add watering log</button>
+    </div>
+
+    <div *ngIf="showAddForm" class="mb-3">
+        <form (ngSubmit)="submitWatering()">
+            <div class="mb-3">
+                <label for="dateWatered" class="form-label">Watering Date</label>
+                <input type="date" id="dateWatered" class="form-control" [(ngModel)]="newWatering.date_watered" name="date_watered" required>
+            </div>
+            <div class="mb-3">
+                <label for="amountMl" class="form-label">Water Amount (ml)</label>
+                <input type="number" id="amountMl" class="form-control" [(ngModel)]="newWatering.amount_ml" name="amount_ml" required>
+            </div>
+            <div class="mb-3">
+                <label for="wateringNotes" class="form-label">Notes</label>
+                <textarea id="wateringNotes" class="form-control" [(ngModel)]="newWatering.notes" name="notes"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="showAddForm = false">Cancel</button>
+        </form>
+    </div>
+
+    <h4>Watering logs</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Watering Date</th>
+                <th scope="col">Water Amount</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let watering of waterings; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ watering.date_watered | date:'yyyy-MM-dd' }}</td>
+                <td>{{ watering.amount_ml }} ml</td>
+                <td>{{ watering.notes }}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="deleteWatering(watering.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <small class="text-muted">Total: {{ waterings.length }} logs</small>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

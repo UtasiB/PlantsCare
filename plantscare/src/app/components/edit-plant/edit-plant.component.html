@@ -1,0 +1,18 @@
+<form (ngSubmit)="updatePlant()">
+    <legend>Edit Plant</legend>
+    <hr>
+    <div class="mb-3">
+        <label for="plantName" class="form-label">Plant Name</label>
+        <input type="text" id="plantName" class="form-control" [(ngModel)]="plant.name" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="plantSpecies" class="form-label">Species</label>
+        <input type="text" id="plantSpecies" class="form-control" [(ngModel)]="plant.species" name="species" required>
+    </div>
+    <div class="mb-3">
+        <label for="waterInterval" class="form-label">Watering Interval (days)</label>
+        <input type="number" id="waterInterval" class="form-control" [(ngModel)]="plant.water_interval_days" name="water_interval_days" required>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+</form>
